@@ -1,0 +1,19 @@
+{
+  "name": "sequelize-poc",
+  "version": "1.0.4",
+  "description": "test model",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "nodemon src/server.js"
+  },
+  "author": "jthomaz",
+  "license": "ISC",
+  "dependencies": {
+    "sequelize": "^5.21.4",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.1"
+  }
+}

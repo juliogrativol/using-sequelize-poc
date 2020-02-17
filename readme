@@ -1,0 +1,10 @@
+
+//Initializing mysql docker local
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d -p 3306:3306 mysql
+
+//Creating data base 
+sequelize db:create
+
+//Creating tables 
+sequelize db:migrate
+

@@ -9,7 +9,7 @@ module.exports = {
         try {
             const transaction = await connection.transaction();
 
-            const user = await UserDAO.store(User, body, transaction)
+            const user = await UserDAO.store({User, body, transaction})
 
             await transaction.commit();
 
@@ -28,7 +28,7 @@ module.exports = {
         try {
             const {User, UserDAO, body} = param
 
-            const users = await UserDAO.list(User, body)
+            const users = await UserDAO.list({User, body})
 
             return users
         } catch (error) {

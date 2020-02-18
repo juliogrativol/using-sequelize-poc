@@ -1,9 +1,9 @@
 module.exports = {
-    async store(Address, body) {
+    async store(param) {
         
     },
 
-    async list(Address) {
+    async list(param) {
 
     }
 }

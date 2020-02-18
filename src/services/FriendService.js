@@ -1,9 +1,9 @@
 module.exports = {
-    async store(Friend, body) {
+    async store(param) {
         
     },
 
-    async list(Friend) {
+    async list(param) {
 
     }
 }

@@ -11,5 +11,4 @@ module.exports = function (app) {
     Address.associate(connection.models)
     User.associate(connection.models)
     Friend.associate(connection.models)
-
 }

@@ -23,7 +23,7 @@ module.exports = {
         const { User, user_id } = param
 
         const user = await User.findByPk(user_id, {
-            include : { association : 'addresses'}
+            include: { association: 'addresses' }
         });
 
         return user

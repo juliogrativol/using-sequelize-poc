@@ -27,9 +27,5 @@ module.exports = {
             console.log("closing connection")
             connection.close()
         }
-    },
-
-    async list(param) {
-
     }
 }

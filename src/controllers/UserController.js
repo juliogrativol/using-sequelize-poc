@@ -11,13 +11,13 @@ module.exports = {
 
             const body = { name, email }
 
-            const user = await UserService.store({User, UserDAO, database, body})
+            const user = await UserService.store({ User, UserDAO, database, body })
 
             return res.json(user)
         } catch (error) {
             console.log('error', error)
 
-            return res.status(500).json({message:error})
+            return res.status(500).json({ message: error })
         }
     },
 
@@ -27,10 +27,10 @@ module.exports = {
             const { UserDAO } = req.app.src.daos
             const { database } = req.app.src.config
 
-            const users = await UserService.list({User, UserDAO, database})
+            const users = await UserService.list({ User, UserDAO, database })
             return res.json(users)
         } catch (error) {
-            return res.status(500).json({message:error})
+            return res.status(500).json({ message: error })
         }
     }
 }

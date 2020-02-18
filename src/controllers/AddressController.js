@@ -11,9 +11,6 @@ module.exports = {
             const { database } = req.app.src.config
 
             const body = { user_id, zipcode, street, number }
-
-            console.log('User', User)
-
             const address = await AddressService.store({ Address, User, AddressDAO, UserDAO, database, body })
 
             return res.json(address)
@@ -34,8 +31,6 @@ module.exports = {
             const body = { user_id }
 
             const user = await UserService.findById({ User, UserDAO, database, body })
-
-            console.log(user)
 
             return res.json(user.addresses)
 

@@ -7,9 +7,5 @@ module.exports = {
         })
 
         return address
-    },
-
-    async list(param) {
-        
     }
 }

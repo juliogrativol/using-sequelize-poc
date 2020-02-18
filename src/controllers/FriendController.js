@@ -8,16 +8,16 @@ module.exports = {
 
         const user = await User.findByPk(user_id);
 
-        if (!user){
-            return res.status(400).json({ error : 'user not found' })
+        if (!user) {
+            return res.status(400).json({ error: 'user not found' })
         }
 
         const [friend] = await Friend.findOrCreate({
-            where : {name, email}
+            where: { name, email }
         })
 
         await user.addFriend(friend)
-        
+
         return res.json(friend)
     },
 
@@ -26,11 +26,11 @@ module.exports = {
         const { user_id } = req.params
 
         const user = await User.findByPk(user_id, {
-            include : { association : 'friends', attributes : ['name', 'email'], through : {attributes : [] }},
+            include: { association: 'friends', attributes: ['name', 'email'], through: { attributes: [] } },
         });
 
-        if (!user){
-            return res.status(400).json({ error : 'user not found' })
+        if (!user) {
+            return res.status(400).json({ error: 'user not found' })
         }
 
         return res.json(user.friends)

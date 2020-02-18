@@ -1,7 +1,7 @@
 const { User} = require('sequelize-poc');
 
 module.exports = {
-    async store(req, res) {
+    async store(req, res, next) {
 
         const { name, email } = req.body
 
@@ -10,7 +10,7 @@ module.exports = {
         return res.json(user)
     },
 
-    async list(req, res) {
+    async list(req, res, next) {
 
         const users = await User.findAll()
 

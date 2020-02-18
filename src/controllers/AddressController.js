@@ -1,7 +1,7 @@
 const { User, Address } = require('sequelize-poc');
 
 module.exports = {
-    async store(req, res) {
+    async store(req, res, next) {
 
         const { user_id } = req.params
         const { zipcode, street, number } = req.body
@@ -17,7 +17,7 @@ module.exports = {
         return res.json(address)
     },
 
-    async list(req, res) {
+    async list(req, res, next) {
 
         const { user_id } = req.params
 

@@ -1,10 +1,12 @@
-const express = require('express')
-const routes = require('./routes')
-require('./database')
+var express = require('express')
+    , load = require('express-load')
 
-const app = express()
+var app = express();
 
-app.use(express.json())
-app.use(routes)
+load('src/config')
+    .then('src/database')
+    .then('src/controllers')
+    .then('src/routes')
+    .into(app);
 
 app.listen(3000)

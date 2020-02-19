@@ -1,13 +1,15 @@
-const { Sequelize } = require('sequelize')
-
 module.exports = {
+
     async store(param) {
 
-        const { User, UserDAO, database, body } = param
-        const connection = new Sequelize(database)
-        const transaction = await connection.transaction();
+        let connection
+        
+        const { connectionFactory, database, UserDAO, body } = param
+        connection = await connectionFactory.getConnection(database)
+        const transaction = await connection.connection.transaction();
 
         try {
+            const { User } = connection
             const user = await UserDAO.store({ User, body, transaction })
 
             await transaction.commit();
@@ -19,20 +21,31 @@ module.exports = {
             throw error;
         } finally {
             console.log("closing connection")
-            connection.close()
+            connection.connection.close()
         }
     },
 
     async list(param) {
 
-        try {
-            const { User, UserDAO, body } = param
+        let connection
 
-            const users = await UserDAO.list({ User, body })
+        try {
+            const { connectionFactory, database, UserDAO } = param
+            connection = await connectionFactory.getConnection(database)
+            const { User } = connection
+
+            const users = await UserDAO.list({ User })
 
             return users
         } catch (error) {
             console.log('error', error)
+        } finally {
+            try {
+                connection.connection.close()
+                console.log("connection closed")
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
 

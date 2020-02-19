@@ -8,10 +8,11 @@ module.exports = {
             const { UserService } = req.app.src.services
             const { UserDAO } = req.app.src.daos
             const { database } = req.app.src.config
+            const { connectionFactory } = req.app.src.database
 
             const body = { name, email }
 
-            const user = await UserService.store({ User, UserDAO, database, body })
+            const user = await UserService.store({ connectionFactory, UserDAO, database, body })
 
             return res.json(user)
         } catch (error) {
@@ -22,12 +23,15 @@ module.exports = {
     },
 
     async list(req, res, next) {
+
         try {
             const { UserService } = req.app.src.services
             const { UserDAO } = req.app.src.daos
             const { database } = req.app.src.config
+            const { connectionFactory } = req.app.src.database
 
-            const users = await UserService.list({ User, UserDAO, database })
+            const users = await UserService.list({ connectionFactory, database, UserDAO })
+            
             return res.json(users)
         } catch (error) {
             return res.status(500).json({ message: error })

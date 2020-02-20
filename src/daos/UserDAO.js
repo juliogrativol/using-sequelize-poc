@@ -1,7 +1,8 @@
 module.exports = {
     async store(param) {
 
-        const { User, body, transaction } = param
+        const { ModelFactory, body, transaction } = param
+        const { User } = ModelFactory
 
         const user = await User.create(body, {
             transaction: transaction
@@ -12,7 +13,8 @@ module.exports = {
 
     async list(param) {
 
-        const { User } = param
+        const { ModelFactory } = param
+        const { User } = ModelFactory
 
         const users = await User.findAll()
 

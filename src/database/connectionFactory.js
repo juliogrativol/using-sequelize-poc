@@ -1,23 +1,10 @@
-const {User, Address, Friend} = require('sequelize-poc');
+const Sequelize = require('sequelize')
 
-module.exports = {
+module.exports = (app) => {
 
-    async getConnection(dbConfig) {
-        const Sequelize = require('sequelize')
-        const connection = new Sequelize(dbConfig)
+    const { database } = app.src.config
+    const connection = new Sequelize(database)
 
-        let UserModel = User.toJSON
+    return { connection }
 
-        console.log(UserModel)
-
-        User.init(connection)        
-        Friend.init(connection)
-        Address.init(connection)
-        
-        Address.associate(connection.models)
-        User.associate(connection.models)
-        Friend.associate(connection.models)
-
-        return { connection, User, Address, Friend }
-    }
 }

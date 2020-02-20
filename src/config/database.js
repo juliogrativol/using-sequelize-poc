@@ -7,11 +7,12 @@ module.exports = {
     define: {
         timestamp: true,
         underscored: true,
-
     },
     pool: {
-        max: 3000,
+        max: 5,
         min: 0,
-        idle: 10000
-    },
+        acquire: 30000,
+        idle: 15000,
+        evict: 10000
+    }
 }

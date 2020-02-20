@@ -2,15 +2,13 @@ module.exports = {
 
     async store(param) {
 
-        let connection
-        
-        const { connectionFactory, database, UserDAO, body } = param
-        connection = await connectionFactory.getConnection(database)
-        const transaction = await connection.connection.transaction();
+        const { ConnectionFactory, ModelFactory, DaoFactory, body } = param
+        const { connection } = ConnectionFactory
+        const transaction = await connection.transaction();
+        const {UserDAO} = DaoFactory
 
         try {
-            const { User } = connection
-            const user = await UserDAO.store({ User, body, transaction })
+            const user = await UserDAO.store({ ModelFactory, body, transaction })
 
             await transaction.commit();
 
@@ -19,33 +17,20 @@ module.exports = {
             console.log('error', error)
             await transaction.rollback();
             throw error;
-        } finally {
-            console.log("closing connection")
-            connection.connection.close()
         }
     },
 
     async list(param) {
 
-        let connection
+        const { ModelFactory, DaoFactory } = param
+        const { UserDAO } = DaoFactory
 
         try {
-            const { connectionFactory, database, UserDAO } = param
-            connection = await connectionFactory.getConnection(database)
-            const { User } = connection
-
-            const users = await UserDAO.list({ User })
+            const users = await UserDAO.list({ ModelFactory })
 
             return users
         } catch (error) {
             console.log('error', error)
-        } finally {
-            try {
-                connection.connection.close()
-                console.log("connection closed")
-            } catch (error) {
-                console.log(error)
-            }
         }
     },
 

@@ -7,10 +7,12 @@ app.use(express.json())
 
 load('src/config')
     .then('src/database')
+    .then('src/models')
     .then('src/controllers')
-    .then('src/routes')
     .then('src/services')
     .then('src/daos')
+    .then('src/factories')
+    .then('src/routes')
     .into(app);
 
 app.listen(3000)

@@ -1,5 +1,3 @@
-const { User, Friend } = require('sequelize-poc');
-
 module.exports = {
     async store(req, res, next) {
 

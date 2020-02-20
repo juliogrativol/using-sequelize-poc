@@ -1,8 +1,7 @@
 module.exports = function (app) {
 
-    const { UserController } = app.src.controllers;
-    const { AddressController } = app.src.controllers;
-    const { FriendController } = app.src.controllers;
+    const { ControllerFactory } = app.src.factories    
+    const { AddressController, UserController, FriendController } = ControllerFactory
 
     app.get('/', (req, res) => { return res.json({ hello: 'world' }) })
 

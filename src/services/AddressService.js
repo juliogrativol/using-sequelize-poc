@@ -1,20 +1,19 @@
-const { Sequelize } = require('sequelize')
-
 module.exports = {
     async store(param) {
         const { Address, AddressDAO, User, UserDAO, database, body } = param
-        const {user_id } = body
         const connection = new Sequelize(database)
         const transaction = await connection.transaction();
 
+        const { user_id } = body
+
         try {
-            const user = await UserDAO.findById({User,user_id});
+            const user = await UserDAO.findById({ User, user_id });
 
             if (!user) {
                 return res.status(400).json({ error: 'user not found' })
             }
 
-            const address = await AddressDAO.store({Address, body, transaction})
+            const address = await AddressDAO.store({ Address, body, transaction })
 
             await transaction.commit();
 
@@ -23,9 +22,6 @@ module.exports = {
             console.log('error', error)
             await transaction.rollback();
             throw error;
-        } finally {
-            console.log("closing connection")
-            connection.close()
         }
     }
 }

@@ -1,23 +1,20 @@
-const { User } = require('sequelize-poc')
-
 module.exports = {
     async store(req, res, next) {
 
         try {
             const { name, email } = req.body
-            const { UserService } = req.app.src.services
-            const { UserDAO } = req.app.src.daos
-            const { database } = req.app.src.config
-            const { connectionFactory } = req.app.src.database
 
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { ConnectionFactory } = req.app.src.database
+
+            const { UserService } = ServiceFactory
             const body = { name, email }
 
-            const user = await UserService.store({ connectionFactory, UserDAO, database, body })
+            const user = await UserService.store({ ConnectionFactory, ModelFactory, DaoFactory, body })
 
             return res.json(user)
         } catch (error) {
             console.log('error', error)
-
             return res.status(500).json({ message: error })
         }
     },
@@ -25,13 +22,11 @@ module.exports = {
     async list(req, res, next) {
 
         try {
-            const { UserService } = req.app.src.services
-            const { UserDAO } = req.app.src.daos
-            const { database } = req.app.src.config
-            const { connectionFactory } = req.app.src.database
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { UserService } = ServiceFactory
 
-            const users = await UserService.list({ connectionFactory, database, UserDAO })
-            
+            const users = await UserService.list({ ModelFactory, DaoFactory })
+
             return res.json(users)
         } catch (error) {
             return res.status(500).json({ message: error })

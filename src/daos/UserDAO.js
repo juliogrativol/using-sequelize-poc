@@ -22,7 +22,8 @@ module.exports = {
     },
 
     async findById(param) {
-        const { User, user_id } = param
+        const { ModelFactory, user_id } = param
+        const { User } = ModelFactory
 
         const user = await User.findByPk(user_id, {
             include: { association: 'addresses' }

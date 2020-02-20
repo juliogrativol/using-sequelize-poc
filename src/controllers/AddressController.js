@@ -2,14 +2,16 @@ module.exports = {
     async store(req, res, next) {
 
         try {
+            
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { ConnectionFactory } = req.app.src.database
+
+            const { AddressService } = ServiceFactory
             const { user_id } = req.params
             const { zipcode, street, number } = req.body
-            const { AddressService } = req.app.src.services
-            const { AddressDAO, UserDAO } = req.app.src.daos
-            const { database } = req.app.src.config
-
             const body = { user_id, zipcode, street, number }
-            const address = await AddressService.store({ Address, User, AddressDAO, UserDAO, database, body })
+
+            const address = await AddressService.store({ ModelFactory, DaoFactory, ConnectionFactory, body })
 
             return res.json(address)
         } catch (error) {
@@ -22,13 +24,16 @@ module.exports = {
     async list(req, res, next) {
 
         try {
-            const { user_id } = req.params
-            const { UserService } = req.app.src.services
-            const { UserDAO } = req.app.src.daos
-            const { database } = req.app.src.config
-            const body = { user_id }
 
-            const user = await UserService.findById({ User, UserDAO, database, body })
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { ConnectionFactory } = req.app.src.database
+
+            const { UserService } = ServiceFactory
+            const { user_id } = req.params
+            const { zipcode, street, number } = req.body
+            const body = { user_id, zipcode, street, number }
+
+            const user = await UserService.findById({ ModelFactory, DaoFactory, ConnectionFactory, body })
 
             return res.json(user.addresses)
 

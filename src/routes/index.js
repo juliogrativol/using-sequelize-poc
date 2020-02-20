@@ -1,6 +1,6 @@
 module.exports = function (app) {
 
-    const { ControllerFactory } = app.src.factories    
+    const { ControllerFactory } = app.src.factories
     const { AddressController, UserController, FriendController } = ControllerFactory
 
     app.get('/', (req, res) => { return res.json({ hello: 'world' }) })

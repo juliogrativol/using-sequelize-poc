@@ -3,7 +3,7 @@ module.exports = {
         const { ConnectionFactory, ModelFactory, DaoFactory, body } = param
         const { connection } = ConnectionFactory
         const transaction = await connection.transaction();
-        const {UserDAO, AddressDAO} = DaoFactory
+        const { UserDAO, AddressDAO } = DaoFactory
 
         const { user_id } = body
 

@@ -2,8 +2,8 @@ const Sequelize = require('sequelize')
 
 module.exports = (app) => {
 
-    const { database } = app.src.config
-    const connection = new Sequelize(database)
+    const { dbConfig } = app.src.config
+    const connection = new Sequelize(dbConfig)
 
     return { connection }
 

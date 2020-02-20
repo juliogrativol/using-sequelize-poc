@@ -14,7 +14,6 @@ module.exports = {
 
             return user
         } catch (error) {
-            console.log('error', error)
             await transaction.rollback();
             throw error;
         }
@@ -30,7 +29,7 @@ module.exports = {
 
             return users
         } catch (error) {
-            console.log('error', error)
+            throw error
         }
     },
 
@@ -45,7 +44,7 @@ module.exports = {
 
             return user
         } catch (error) {
-            console.log('error', error)
+            throw error
         }
     }
 }

@@ -15,8 +15,6 @@ module.exports = {
 
             return res.json(address)
         } catch (error) {
-            console.log('error', error)
-
             return res.status(500).json({ message: error })
         }
     },
@@ -38,8 +36,6 @@ module.exports = {
             return res.json(user.addresses)
 
         } catch (error) {
-            console.log('error', error)
-
             return res.status(500).json({ message: error })
         }
     }

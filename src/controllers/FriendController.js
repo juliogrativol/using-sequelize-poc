@@ -1,36 +1,38 @@
 module.exports = {
     async store(req, res, next) {
 
-        const { user_id } = req.params
-        const { name, email } = req.body
+        try {
 
-        const user = await User.findByPk(user_id);
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { ConnectionFactory } = req.app.src.database
 
-        if (!user) {
-            return res.status(400).json({ error: 'user not found' })
+            const { FriendService } = ServiceFactory
+            const { user_id } = req.params
+            const { name, email } = req.body
+            const body = { user_id, name, email }
+
+            const friend = await FriendService.store({ ModelFactory, DaoFactory, ConnectionFactory, body })
+
+            return res.json(friend)
+        } catch (error) {
+            return res.status(500).json({ message: error })
         }
-
-        const [friend] = await Friend.findOrCreate({
-            where: { name, email }
-        })
-
-        await user.addFriend(friend)
-
-        return res.json(friend)
     },
 
     async list(req, res, next) {
 
-        const { user_id } = req.params
+        try {
+            const { ServiceFactory, DaoFactory, ModelFactory } = req.app.src.factories
+            const { UserService } = ServiceFactory
 
-        const user = await User.findByPk(user_id, {
-            include: { association: 'friends', attributes: ['name', 'email'], through: { attributes: [] } },
-        });
+            const { user_id } = req.params
+            const body = { user_id }
 
-        if (!user) {
-            return res.status(400).json({ error: 'user not found' })
+            const user = await UserService.findById({ ModelFactory, DaoFactory, body })
+
+            return res.json(user.friends)
+        } catch (error) {
+            return res.status(500).json({ message: error })
         }
-
-        return res.json(user.friends)
     }
 }

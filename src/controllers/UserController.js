@@ -14,7 +14,6 @@ module.exports = {
 
             return res.json(user)
         } catch (error) {
-            console.log('error', error)
             return res.status(500).json({ message: error })
         }
     },

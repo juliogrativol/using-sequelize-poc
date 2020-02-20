@@ -20,7 +20,6 @@ module.exports = {
 
             return address
         } catch (error) {
-            console.log('error', error)
             await transaction.rollback();
             throw error;
         }

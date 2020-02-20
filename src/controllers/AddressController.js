@@ -28,8 +28,7 @@ module.exports = {
 
             const { UserService } = ServiceFactory
             const { user_id } = req.params
-            const { zipcode, street, number } = req.body
-            const body = { user_id, zipcode, street, number }
+            const body = { user_id }
 
             const user = await UserService.findById({ ModelFactory, DaoFactory, ConnectionFactory, body })
 

@@ -26,7 +26,7 @@ module.exports = {
         const { User } = ModelFactory
 
         const user = await User.findByPk(user_id, {
-            include: { association: 'addresses', association: 'friends'}
+            include:[ { association: 'addresses'},{ association: 'friends'}]
         });
 
         return user

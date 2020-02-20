@@ -5,7 +5,7 @@ module.exports = {
         const { ConnectionFactory, ModelFactory, DaoFactory, body } = param
         const { connection } = ConnectionFactory
         const transaction = await connection.transaction();
-        const {UserDAO} = DaoFactory
+        const { UserDAO } = DaoFactory
 
         try {
             const user = await UserDAO.store({ ModelFactory, body, transaction })
@@ -37,10 +37,11 @@ module.exports = {
     async findById(param) {
 
         try {
-            const { User, UserDAO, body } = param
+            const { ModelFactory, DaoFactory, body } = param
+            const { UserDAO } = DaoFactory
             const { user_id } = body
 
-            const user = await UserDAO.findById({ User, user_id })
+            const user = await UserDAO.findById({ ModelFactory, user_id })
 
             return user
         } catch (error) {

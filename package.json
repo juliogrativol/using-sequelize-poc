@@ -14,7 +14,7 @@
     "express-load": "^1.1.16",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.4",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^5.5.1",
     "sequelize-poc": "^1.0.8"
   },
